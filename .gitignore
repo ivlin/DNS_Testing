@@ -1,0 +1,8 @@
+#Directories
+db
+env
+tcpout
+
+#Files
+browsertime.js
+browsertime-results
