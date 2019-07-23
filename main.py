@@ -20,12 +20,12 @@ def test_domain(domain, out_path, num_trials=1):
     for extension in extensions:
         driver.install_addon(extension_dir + extension, temporary=True)
 
-    time.sleep(3)
+    #time.sleep(3)
 
     outname="%s/tcpdump_raw"%out_path
     with open(outname, "w") as tcpout:
         #Begin TCPDump
-        #sudo_password="altairdenebvega"
+        sudo_password="altairdenebvega"
         #sudo_password="fe2d2cd42390e2b300b548eb80f3c23f36ea41"
         command = 'sudo tcpdump'.split()
         p = subprocess.Popen(['sudo', '-S'] + command, stdin=subprocess.PIPE, stderr=tcpout, stdout=tcpout,
@@ -39,9 +39,11 @@ def test_domain(domain, out_path, num_trials=1):
         driver.get(domain)
 
 
-        time.sleep(2)
+        #time.sleep(3)
+        print("Killing\n")
         subprocess.check_call(["sudo","kill","-9",str(p.pid)])
         os.waitpid(p.pid, 0)
+        print("Killed\n")
 
         #assert "Python" in driver.title
         elem = driver.find_element_by_name("q")
@@ -238,7 +240,7 @@ def pull_data(num_trials):
             os.mkdir(DATA_DIRECTORY)
         except Exception:
             pass
-        for domain in ["google.com"]:
+        for domain in domains:
             out_path="%s/%d"%(DATA_DIRECTORY, ind)
             try:
                 os.mkdir(out_path)
