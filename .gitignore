@@ -2,6 +2,7 @@
 db
 env
 tcpout
+node_modules
 
 #Files
 browsertime.js
